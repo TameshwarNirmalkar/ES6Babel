@@ -1,1 +1,1 @@
-import Hello from './app/hello.jsx';
+import Hello from './app/dashboard/hello.jsx';

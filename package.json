@@ -7,7 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "webpack-dev-server --progress --colors --inline --content-base src/",
         "dev": "webpack-dev-server --progress --colors --inline --content-base src/",
-        "build": "webpack -p"
+        "build": "webpack -p",
+        "rest": "json-server db.json --routes routes.json --port 4001"
     },
     "repository": {
         "type": "git",
@@ -30,6 +31,7 @@
         "babel-preset-react": "^6.16.0",
         "jshint": "^2.9.3",
         "jshint-loader": "^0.8.3",
+        "json-server": "^0.8.22",
         "webpack": "^1.13.2",
         "webpack-dev-server": "^1.16.1"
     }
