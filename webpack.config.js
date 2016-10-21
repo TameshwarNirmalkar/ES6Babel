@@ -7,13 +7,16 @@ module.exports = {
         path: './build',
         filename: 'bundle.js'
     },
+    // resolveLoader: {
+    //     root: path.join(__dirname, 'node_modules')
+    // },
     module: {
         /**
          * [preLoaders description]: it run jshinter for code formating and error checking.
          * @type {Array of Objects}
          */
         preLoaders: [{
-            test: /\.js$/,
+            test: /\.jsx$/,
             exclude: /node_modules/,
             loader: 'jshint-loader'
         }],
@@ -32,7 +35,7 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['', '.js', '.es6']
+        extensions: ['', '.js', '.es6', 'jsx']
     },
 
     devServer: {

@@ -1,29 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// const ACTIONBUTTON = React.createClass({
-
-//  displayName: 'ActionButton',
-
-//  propTypes: {
-//      title: React.PropTypes.string,
-//      onClick: React.PropTypes.func
-//  },
-
-//  render() {
-//      return (
-//          <div>
-//              <button onClick={ this.props.onClick }>{ this.props.title }</button>
-//          </div>
-//      );
-//  }
-
-// })
-
 class ACTIONBUTTON extends React.Component {
+    /**
+     * [constructor description]: Inplace of getInitialStates constructor has introduced in React ES6.
+     * @param  {[props]} props = [propTypes]
+     */
+    constructor(props) {
+        super(props);
+        this.props = props;
+    }
 
-    constructor() {
-        super();
+    /**
+     * [componentWillReceiveProps description] : this calls when state changes
+     * @param  {Function} next [give updated props] 
+     */
+    componentWillReceiveProps(next) {
+        console.log(next);
     }
 
     render() {

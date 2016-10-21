@@ -1,5 +1,5 @@
 {
-    "posts": [
+    "authorlists": [
         { "id": 1, "title": "Team Lead", "author": "Tameshwar Nirmalkar" },
         { "id": 2, "title": "Software Engineer", "author": "Aritra Gosh" },
         { "id": 3, "title": "Sr. Software Engineer", "author": "Chetan" },
