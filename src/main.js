@@ -1,1 +1,1 @@
-import Hello from './app/dashboard/hello.js';
+import Hello from './app/dashboard/';

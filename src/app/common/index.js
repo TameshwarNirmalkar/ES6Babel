@@ -5,19 +5,17 @@
 const AppDispatcher = require('flux').Dispatcher;
 const DTColors = require('./DTColors');
 const Format = require('./Format');
-// const RestResource = require('./RestResource');
-// const Util = require('./Util.js');
+const RestResource = require('./RestResource');
+const Util = require('./Util.js');
 const Validate = require('./Validate.js');
-// const AuditLog = require('./AuditLog');
-// const BaseStore = require('./BaseStore');
+const AuditLog = require('./AuditLog');
 
 module.exports = {
     AppDispatcher: new AppDispatcher(),
     DTColors: DTColors,
     Format: Format,
-    // RestResource: RestResource,
-    // Util: Util,
+    RestResource: RestResource,
+    Util: Util,
     Validate: Validate,
-    // AuditLog: AuditLog,
-    // BaseStore: BaseStore
+    AuditLog: AuditLog
 };

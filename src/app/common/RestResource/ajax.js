@@ -79,7 +79,7 @@ module.exports = function ajax(opts, attempt) {
 
         // try without X-Request-ID
         if (jqXHR.status >= 500 && _.has(opts.headers, 'X-Request-ID')) {
-            opts = {...opts};
+            opts = {...opts };
             opts.headers = _.omit(opts.headers, 'X-Request-ID');
             return tryAjax();
         }
@@ -92,6 +92,7 @@ module.exports = function ajax(opts, attempt) {
     };
 
     tryAjax();
+
 
     return promise;
 };

@@ -14,7 +14,7 @@ const ajax = require('./ajax');
  *    ajaxOptions: object, ex. {timeout: 10000, retry: 1}
  * }
  **/
-module.exports = function (c) {
+module.exports = function(c) {
     // make it a constant so we do not accidentally mutate it
     const config = c;
     const headers = _.merge({}, config.authHeader, config.clientHeaders);
@@ -29,7 +29,7 @@ module.exports = function (c) {
         statusCode: {
             // To test this, be sure you are not doing cross-domain requests
             // otherwise statusCode will be 0!
-            401: function () {
+            401: function() {
                 window.location = config.loginUrl;
             }
         },
