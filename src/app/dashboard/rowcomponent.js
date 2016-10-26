@@ -6,8 +6,8 @@ class MovieRow extends React.Component {
     constructor(props) {
         super(props);
         this.props = props;
-        this._onUpdate = this._onUpdate.bind(this);
-        this._onDelete = this._onDelete.bind(this);
+        // this._onUpdate = this._onUpdate.bind(this);
+        // this._onDelete = this._onDelete.bind(this);
     }
 
     componentWillReceiveProps(next) {
@@ -22,8 +22,8 @@ class MovieRow extends React.Component {
 	            <td>{ this.props.title }</td>
 	            <td>{ this.props.author }</td>
 	            <td>
-	                <a onClick={this._onUpdate} href="javascript:void(0);"><i class="glyphicon glyphicon-edit text-success"> </i></a>
-	                <a onClick={this._onDelete} href="javascript:void(0);"><i class="glyphicon glyphicon-remove text-danger"> </i></a>
+	                <a onClick={this._onUpdate.bind(this)} href="javascript:void(0);"><i class="glyphicon glyphicon-edit text-success"> </i></a>
+	                <a onClick={this._onDelete.bind(this)} href="javascript:void(0);"><i class="glyphicon glyphicon-remove text-danger"> </i></a>
 	            </td>
 	        </tr>
         );

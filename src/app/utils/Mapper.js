@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const dashboardFields = ['title', 'author'];
+const dashboardFields = ['id','title', 'author'];
 
 const fromBackend = payload => {
     const dashboard = {

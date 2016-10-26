@@ -13,32 +13,32 @@ const _SAVE_TEMPLATE_DELAY = 300;
 let _updatePromise = null;
 let _createPromise = null;
 
-const DashboardAction = {
+class DashboardAction {
     setTitle(title) {
         AppDispatcher.dispatch({
             actionType: DashboardEvents.TITLE_CHANGE,
-            title: title.target.value
+            title: title
         });
-    },
+    }
 
     setAuthor(author) {
         AppDispatcher.dispatch({
             actionType: DashboardEvents.AUTHOR_CHANGE,
-            author: author.target.value
+            author: author
         });
-    },
+    }
 
-    setDashboard() {
+    saveDashboard() {
         this._saveDashboard();
-    },
+    }
 
-    _saveDashboard() {
+    _saveDashboard() {  
         // _.debounce(() => {
         const data = Mapper.toBackend(DashboardStore.getDashboard());
-        data.id ? this._updateDashboard(data) : this._createDashboard(data);
+       data.id ? this._updateDashboard(data) : this._createDashboard(data);
         // console.log(data);
         // }, 300);
-    },
+    }
 
     _createDashboard(data) {
         AuthorRestService.post('authors', JSON.stringify(data)).then(dashboard => {
@@ -48,25 +48,35 @@ const DashboardAction = {
             });
         });
 
-    },
+    }
 
-    updateRow(id) {
-        AuthorRestService.get('authors/' + id).then(dashboard => {
-            console.log(dashboard);
+    _updateDashboard(data) {
+        const DashboardeEvents = require('./dashboard.events');
+        // return this._execute(
+        //     _updatePromise = AuthorRestService.put('authors/' + data.id, JSON.stringify(data))
+        // );
+
+        AuthorRestService.put('authors/' + data.id, JSON.stringify(data)).then(dashboard => {
+           AppDispatcher.dispatch({
+                actionType: DashboardEvents.LOAD_AUTHORS,
+                author: dashboard
+            }); 
         })
-    },
+    }
+
+    getRowData(id) {
+        AuthorRestService.get('authors/' + id).then(authordetails => {
+            AppDispatcher.dispatch({
+                actionType: DashboardEvents.FILL_AUTHOR,
+                author: Mapper.fromBackend(authordetails)
+            });
+        })
+    }
 
     rowClick(e) {
         // e.stopPropagation()
         // console.log('Row Click', e.target);
-    },
-
-    _updateDashboard(data) {
-        const DashboardeEvents = require('./dashboard.events');
-        return this._execute(
-            _updatePromise = AuthorRestService.put('authors/' + data.id, JSON.stringify(data))
-        );
-    },
+    }
 
     deleteRow(id) {
         // const uid = $(e.target).attr('data-id');
@@ -77,7 +87,7 @@ const DashboardAction = {
             });
         })
 
-    },
+    }
 
     _execute(endpoint) {
         AppDispatcher.dispatch({
@@ -107,12 +117,12 @@ const DashboardAction = {
                 actionType: DashboardEvents.DASHBOARD_SAVE_FAILED
             });
         });
-    },
+    }
 
     _setUrl(templateId) {
         const locationUrl = window.location.href.replace(/[^\/]+((\?.*)?$|\/$)/, templateId);
         window.history.replaceState({}, 'Create template', locationUrl);
     }
-};
+}
 
-module.exports = DashboardAction;
+export let DashboardActions = new DashboardAction();

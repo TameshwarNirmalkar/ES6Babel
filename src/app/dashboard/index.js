@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import DashboardStore from './dashboard.store';
-import DashboardAction from './dashboard.action';
+import { DashboardActions } from './dashboard.action';
 
 import INPUTTEXTBOX from '../common/InputTextbox';
 import SAVEBUTTON from '../common/InputButton';
 import DATALIST from './datalist';
+import { DashboardServices } from './test';
 
 class DASHBOARD extends React.Component {
 
@@ -14,7 +15,8 @@ class DASHBOARD extends React.Component {
 
         this.state = {
             authorlist: [],
-            dashboard: DashboardStore.getDashboard()
+            dashboard: DashboardStore.getDashboard(),
+            rowcolor: DashboardStore.getRowColor()
         };
 
         this._onStateChange = this._onStateChange.bind(this);
@@ -30,15 +32,18 @@ class DASHBOARD extends React.Component {
     }
 
     _onStateChange() {
-        this.setState({ authorlist: DashboardStore.getAuthors() });
+        this.setState({
+            authorlist: DashboardStore.getAuthors(),
+            dashboard: DashboardStore.getDashboard()
+        });
     }
 
     getTitleProps() {
         return {
             label: 'Movie Name',
             placeholder: 'Enter any movie name',
-            value: _.get(this.state, 'dashboard.title'),
-            onChange: DashboardAction.setTitle
+            val: _.get(this.state, 'dashboard.title'),
+            onChange: DashboardActions.setTitle
         }
     }
 
@@ -46,8 +51,8 @@ class DASHBOARD extends React.Component {
         return {
             label: 'Movie Cast',
             placeholder: 'Actor and actoress name',
-            value: _.get(this.state, 'dashboard.author'),
-            onChange: DashboardAction.setAuthor
+            val: _.get(this.state, 'dashboard.author'),
+            onChange: DashboardActions.setAuthor
         }
     }
 
@@ -62,14 +67,15 @@ class DASHBOARD extends React.Component {
     getDataProps() {
         return {
             heading: 'Movie List',
+            rowcolor: this.state.rowcolor,
             items: this.state.authorlist,
-            updateRow: DashboardAction.updateRow,
-            deleteRow: DashboardAction.deleteRow
+            getRowData: DashboardActions.getRowData,
+            deleteRow: DashboardActions.deleteRow
         }
     }
 
     _saveDashboard() {
-        DashboardAction.setDashboard();
+        DashboardActions.saveDashboard();
     }
 
     render() {

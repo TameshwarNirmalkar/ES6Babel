@@ -3,7 +3,6 @@ const update = require('react-addons-update');
 
 const { AppDispatcher } = require('../common/index');
 const BaseStore = require('../utils/BaseStore');
-// const BaseStore = require('../common/BaseStore');
 const DashboardEvents = require('./dashboard.events');
 const DashboardModel = require('./dashboard.model');
 
@@ -29,6 +28,10 @@ const DashboardStore = Object.assign({}, BaseStore, {
 
     getDashboard() {
         return _dashboard;
+    },
+
+    getRowColor() {
+        return 'success';
     },
 
     _setAuthors(authorlists) {
@@ -70,7 +73,6 @@ DashboardStore.registerWithDispatcher(payload => {
     switch (payload.actionType) {
         case DashboardEvents.LOAD_AUTHORS:
             DashboardStore.fetchAuthorsLists();
-            DashboardStore._resetDashboard();
             DashboardStore._emitChange();
 
         case DashboardEvents.AUTHORS_LOADED:
@@ -95,7 +97,7 @@ DashboardStore.registerWithDispatcher(payload => {
 
         case DashboardEvents.DASHBOARD_SAVED:
             DashboardStore._saveDashboard(payload);
-            DashboardStore._resetDashboard();
+            // DashboardStore._resetDashboard();
             DashboardStore._emitChange();
             break;
 
@@ -106,6 +108,11 @@ DashboardStore.registerWithDispatcher(payload => {
 
         case DashboardEvents.DASHBOARD_SAVE_ABORTED:
             DashboardStore._saveDashboard(payload);
+            DashboardStore._emitChange();
+            break;
+        
+        case DashboardEvents.FILL_AUTHOR:
+            DashboardStore._setDashboard(payload.author);
             DashboardStore._emitChange();
             break;
     }

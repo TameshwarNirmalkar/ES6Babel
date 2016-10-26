@@ -1,24 +1,14 @@
 {
   "authors": [
     {
-      "title": "tameshwar",
-      "author": "nirmalkar",
-      "id": 1
+      "id": 1,
+      "title": "test",
+      "author": "test"
     },
     {
-      "title": "fsfsfas",
-      "author": "fdsfsfasf",
-      "id": 2
-    },
-    {
-      "title": "fsafdf",
-      "author": "fsdfasfasfas",
-      "id": 3
-    },
-    {
-      "title": "ffasfd",
-      "author": "fasdfaf",
-      "id": 4
+      "id": 2,
+      "title": "Tameshwar",
+      "author": "Nirmalkar"
     }
   ],
   "comments": [

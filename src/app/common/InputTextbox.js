@@ -8,6 +8,10 @@ class INPUTTEXTBOX extends React.Component {
         this.props = props;
     }
 
+    _onChange(e) {
+        this.props.onChange(e.target.value);
+    }
+
     render() {
         return (
             <div>
@@ -15,10 +19,10 @@ class INPUTTEXTBOX extends React.Component {
                     <label>
                         { this.props.label }
                     </label>                    
-                    <input type="text" value={this.props.val} onChange={this.props.onChange}  placeholder={this.props.placeholder} class="form-control" />
+                    <input type="text" value={this.props.val} onChange={this._onChange.bind(this)}  placeholder={this.props.placeholder} class="form-control" />
                 </div>
 
-        	</div>
+            </div>
 
         );
     }
@@ -26,7 +30,7 @@ class INPUTTEXTBOX extends React.Component {
 }
 
 INPUTTEXTBOX.propTypes = {
-    value: React.PropTypes.string,
+    val: React.PropTypes.string,
     onChange: React.PropTypes.func,
     label: React.PropTypes.string,
     placeholder: React.PropTypes.string
