@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MovieRow from './rowcomponent';
+import RowComponent from './rowcomponent';
 
 class DATALIST extends React.Component {
     /**
@@ -25,13 +25,10 @@ class DATALIST extends React.Component {
         if (!this.props.items.length) {
             return <tr><td colSpan="4">No records found...</td></tr>;
         }
-        return this.props.items.map(item => <MovieRow {...item} key={item.id} onUpdateRow={this.props.getRowData} onDeleteRow={this.props.deleteRow} />);
+        return this.props.items.map(item => <RowComponent {...item} key={item.id} onUpdateRow={this.props.getRowData} onDeleteRow={this.props.deleteRow} />);
     }
 
     _renderPanel() {
-        if (!this.props.items.length) {
-            return null;
-        }
         return (
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -41,10 +38,10 @@ class DATALIST extends React.Component {
                     <table style={this.tableStyle} class="table table-bordered table-hover">
                         <thead>
                             <tr class={this.props.rowcolor}>
-                                <th>Sr. No</th>
-                                <th>Movie</th>
-                                <th>Actor</th>
-                                <th>Action</th>
+                                <th class="col-lg-2" width="60">Sr. No</th>
+                                <th class="col-lg-4" width="">Movie</th>
+                                <th class="col-lg-4" width="">Actor</th>
+                                <th class="col-lg-2" width="60">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +58,7 @@ class DATALIST extends React.Component {
 
     render() {
         if (!this.props.items) {
-            return;
+            return null;
         }
         return (
             <div>

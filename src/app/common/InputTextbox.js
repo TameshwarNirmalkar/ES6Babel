@@ -1,15 +1,22 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
-class INPUTTEXTBOX extends React.Component {
+export default class InputTextBox extends Component {
     constructor(props) {
         super(props);
-
-        this.props = props;
     }
 
     _onChange(e) {
         this.props.onChange(e.target.value);
+    }
+
+    /**
+     * [shouldComponentUpdate] : there is a place when you stop rerender copmonent.
+     * @param  {[nextProps]}: getting next props
+     * @return {[nextState]}: getting next states
+     */
+    shouldComponentUpdate(nextProps, nextState){
+        return !_.isEqual(this.props, nextProps);
     }
 
     render() {
@@ -21,19 +28,15 @@ class INPUTTEXTBOX extends React.Component {
                     </label>                    
                     <input type="text" value={this.props.val} onChange={this._onChange.bind(this)}  placeholder={this.props.placeholder} class="form-control" />
                 </div>
-
             </div>
-
         );
     }
 
 }
 
-INPUTTEXTBOX.propTypes = {
+InputTextBox.PropTypes = {
     val: React.PropTypes.string,
     onChange: React.PropTypes.func,
     label: React.PropTypes.string,
     placeholder: React.PropTypes.string
 }
-
-module.exports = INPUTTEXTBOX;

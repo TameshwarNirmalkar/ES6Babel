@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
-class MovieRow extends React.Component {
+class RowComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -17,12 +17,12 @@ class MovieRow extends React.Component {
     render() {
 
         return (
-            <tr role="button">
+            <tr onClick={this._onUpdate.bind(this)} role="button">
 	            <td>{ this.props.id }</td>
 	            <td>{ this.props.title }</td>
 	            <td>{ this.props.author }</td>
 	            <td>
-	                <a onClick={this._onUpdate.bind(this)} href="javascript:void(0);"><i class="glyphicon glyphicon-edit text-success"> </i></a>
+	                <a href="javascript:void(0);"><i class="glyphicon glyphicon-edit text-success hidden"> </i></a>
 	                <a onClick={this._onDelete.bind(this)} href="javascript:void(0);"><i class="glyphicon glyphicon-remove text-danger"> </i></a>
 	            </td>
 	        </tr>
@@ -33,17 +33,18 @@ class MovieRow extends React.Component {
         this.props.onUpdateRow(this.props.id);
     }
 
-    _onDelete() {
+    _onDelete(e) {
+        e.stopPropagation();
         this.props.onDeleteRow(this.props.id);
     }
 };
 
-MovieRow.propTypes = {
+RowComponent.propTypes = {
     id: React.PropTypes.number,
-    title: React.PropTypes.string,
-    author: React.PropTypes.string,
+    title: React.PropTypes.any,
+    author: React.PropTypes.any,
     onUpdateRow: React.PropTypes.func,
     onDeleteRow: React.PropTypes.func
 }
 
-export default MovieRow;
+export default RowComponent;

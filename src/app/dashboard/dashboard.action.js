@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const $ = require('jquery');
 
 const { AppDispatcher, RestResource } = require('../common');
 const Mapper = require('../utils/Mapper');
@@ -14,6 +13,30 @@ let _updatePromise = null;
 let _createPromise = null;
 
 class DashboardAction {
+
+    fetchAuthorsLists() {
+        AppDispatcher.dispatch({
+            actionType: DashboardEvents.AUTHORS_LOADING,
+            notification: {
+                message: 'Loading...'
+            }
+        });
+
+        fetch('http://localhost:4001/api/authors')
+            .then(result => result.json())
+            .then(authorlists => {
+                setTimeout(() => {
+                    AppDispatcher.dispatch({
+                        actionType: DashboardEvents.AUTHORS_LOADED,
+                        authorlists,
+                        notification: {
+                            message: 'Authors loaded'
+                        }
+                    });
+                }, 1000);
+            });
+    }
+
     setTitle(title) {
         AppDispatcher.dispatch({
             actionType: DashboardEvents.TITLE_CHANGE,
@@ -28,40 +51,48 @@ class DashboardAction {
         });
     }
 
+    getNotification() {
+        return _notification;
+    }
+
     saveDashboard() {
         this._saveDashboard();
     }
 
-    _saveDashboard() {  
+    _saveDashboard() {
         // _.debounce(() => {
         const data = Mapper.toBackend(DashboardStore.getDashboard());
-       data.id ? this._updateDashboard(data) : this._createDashboard(data);
-        // console.log(data);
+        data.id ? this._updateDashboard(data) : this._createDashboard(data);
         // }, 300);
     }
 
     _createDashboard(data) {
-        AuthorRestService.post('authors', JSON.stringify(data)).then(dashboard => {
-            AppDispatcher.dispatch({
-                actionType: DashboardEvents.LOAD_AUTHORS,
-                author: dashboard
-            });
-        });
+        return this._execute(
+            _createPromise = AuthorRestService.post('authors', JSON.stringify(data))
+        );
+
+        // AuthorRestService.post('authors', JSON.stringify(data)).then(dashboard => {
+        //     console.log( dashboard );
+        //     AppDispatcher.dispatch({
+        //         actionType: DashboardEvents.FETCH_AUTHORS,
+        //         author: dashboard
+        //     });
+        // });
 
     }
 
     _updateDashboard(data) {
-        const DashboardeEvents = require('./dashboard.events');
-        // return this._execute(
-        //     _updatePromise = AuthorRestService.put('authors/' + data.id, JSON.stringify(data))
-        // );
+        console.log('Update method: ', data );
+        return this._execute(
+            _updatePromise = AuthorRestService.put('authors/' + data.id, JSON.stringify(data))
+        );
 
-        AuthorRestService.put('authors/' + data.id, JSON.stringify(data)).then(dashboard => {
+        /*AuthorRestService.put('authors/' + data.id, JSON.stringify(data)).then(dashboard => {
            AppDispatcher.dispatch({
-                actionType: DashboardEvents.LOAD_AUTHORS,
+                actionType: DashboardEvents.FETCH_AUTHORS,
                 author: dashboard
             }); 
-        })
+        })*/
     }
 
     getRowData(id) {
@@ -73,39 +104,33 @@ class DashboardAction {
         })
     }
 
-    rowClick(e) {
-        // e.stopPropagation()
-        // console.log('Row Click', e.target);
-    }
-
     deleteRow(id) {
-        // const uid = $(e.target).attr('data-id');
-        // console.log(uid);
         AuthorRestService.delete('authors/' + id).then(dashboard => {
             AppDispatcher.dispatch({
-                actionType: DashboardEvents.LOAD_AUTHORS
+                actionType: DashboardEvents.DELETE_AUTHOR,
+                authorId: id
             });
         })
-
     }
 
     _execute(endpoint) {
+        console.log('Excute method: ');
         AppDispatcher.dispatch({
             actionType: DashboardEvents.DASHBOARD_SAVE_IN_PROGRESS
         });
 
-        return endpoint.then(dashboard => {
-
+        return endpoint.then(author => {
+            console.log('Inside callback : ', Mapper.fromBackend(author));
             AppDispatcher.dispatch({
                 actionType: DashboardEvents.DASHBOARD_SAVED,
-                dashboard: Mapper.fromBackend(dashboard)
+                author: Mapper.fromBackend(author)
             });
 
-            return dashboard;
+            return author;
 
         }).fail(error => {
 
-            if (_updatePromise.isAborted) {
+            if (_updatePromise && _updatePromise.isAborted) {
                 AppDispatcher.dispatch({
                     actionType: DashboardEvents.DASHBOARD_SAVE_ABORTED
                 });
@@ -119,8 +144,8 @@ class DashboardAction {
         });
     }
 
-    _setUrl(templateId) {
-        const locationUrl = window.location.href.replace(/[^\/]+((\?.*)?$|\/$)/, templateId);
+    _setUrl(id) {
+        const locationUrl = window.location.href.replace(/[^\/]+((\?.*)?$|\/$)/, id);
         window.history.replaceState({}, 'Create template', locationUrl);
     }
 }

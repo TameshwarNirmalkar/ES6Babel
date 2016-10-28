@@ -9,17 +9,12 @@ const DashboardModel = require('./dashboard.model');
 let _authorlists = null;
 let _dashboard = new DashboardModel();
 
+let _notification = null;
+
 const DashboardStore = Object.assign({}, BaseStore, {
 
-    fetchAuthorsLists() {
-        fetch('http://localhost:4001/api/authors')
-            .then(result => result.json())
-            .then(authorlists => {
-                AppDispatcher.dispatch({
-                    actionType: DashboardEvents.AUTHORS_LOADED,
-                    authorlists
-                });
-            });
+    getNotification(){
+        return _notification;
     },
 
     getAuthors() {
@@ -34,16 +29,24 @@ const DashboardStore = Object.assign({}, BaseStore, {
         return 'success';
     },
 
+    getButtonDisabled(){
+        return true;
+    },
+
+    _setNotification(notification){
+        _notification = notification;
+    },
+
     _setAuthors(authorlists) {
         _authorlists = authorlists;
     },
 
     _setTitle(title) {
-        this._updateDashboardWith({ title: { $set: title } });
+        this._updateDashboardWith({ title: { $set: String(title) } });
     },
 
     _setAuthor(author) {
-        this._updateDashboardWith({ author: { $set: author } });
+        this._updateDashboardWith({ author: { $set: String(author) } });
     },
 
     _setDashboard(dashboard) {
@@ -55,28 +58,47 @@ const DashboardStore = Object.assign({}, BaseStore, {
     },
 
     _saveInProgress() {
-        console.log('INPROGRESS');
+        const notification = {'message': 'Loading...'};
+        this._setNotification(notification);
     },
 
-    _saveDashboard() {
-        console.log('SAVED');
+    _saveDashboard(payload) {
+        const oldlist = this.getAuthors();
+        const getkey = _.find(oldlist, { 'id': payload.author.id });
+        if(getkey){
+            _.merge(getkey, payload.author);
+        }else{
+            this._setDashboard( oldlist.push(payload.author) );
+        }
+        
+        const notification = {'message': 'Done'};
+        this._setNotification(notification);
+        
     },
 
     _resetDashboard() {
         _dashboard = new DashboardModel();
-    }
+        DashboardStore._emitChange();
+    },
 
+    _deleteAuthor(authorId){
+        const allAuthors = this.getAuthors();
+        _.remove(allAuthors, {id : authorId});
+    }
 });
 
 DashboardStore.registerWithDispatcher(payload => {
     // console.log('Payload: ', payload);
     switch (payload.actionType) {
-        case DashboardEvents.LOAD_AUTHORS:
-            DashboardStore.fetchAuthorsLists();
-            DashboardStore._emitChange();
 
+        case DashboardEvents.AUTHORS_LOADING:
+            DashboardStore._setNotification(payload.notification);
+            DashboardStore._emitChange();
+            break;
+        
         case DashboardEvents.AUTHORS_LOADED:
             DashboardStore._setAuthors(payload.authorlists);
+            DashboardStore._setNotification(payload.notification);
             DashboardStore._emitChange();
             break;
 
@@ -97,22 +119,16 @@ DashboardStore.registerWithDispatcher(payload => {
 
         case DashboardEvents.DASHBOARD_SAVED:
             DashboardStore._saveDashboard(payload);
-            // DashboardStore._resetDashboard();
-            DashboardStore._emitChange();
-            break;
-
-        case DashboardEvents.DASHBOARD_SAVE_FAILED:
-            DashboardStore._saveDashboard(payload);
-            DashboardStore._emitChange();
-            break;
-
-        case DashboardEvents.DASHBOARD_SAVE_ABORTED:
-            DashboardStore._saveDashboard(payload);
-            DashboardStore._emitChange();
+            DashboardStore._resetDashboard();
             break;
         
         case DashboardEvents.FILL_AUTHOR:
             DashboardStore._setDashboard(payload.author);
+            DashboardStore._emitChange();
+            break;
+
+        case DashboardEvents.DELETE_AUTHOR:
+            DashboardStore._deleteAuthor(payload.authorId);
             DashboardStore._emitChange();
             break;
     }

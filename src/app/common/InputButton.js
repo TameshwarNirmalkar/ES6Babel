@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
-class SAVEBUTTON extends React.Component {
+class InputButton extends Component {
     /**
      * [constructor description]: Inplace of getInitialStates constructor has introduced in React ES6.
      * @param  {[props]} props = [propTypes]
@@ -19,16 +19,28 @@ class SAVEBUTTON extends React.Component {
         // console.log(next);
     }
 
+    /**
+     * [shouldComponentUpdate] : there is a place when you stop rerender copmonent.
+     * @param  {[nextProps]}: getting next props
+     * @return {[nextState]}: getting next states
+     */
+    shouldComponentUpdate(nextProps, nextState){
+        return !_.isEqual(this.props, nextProps);
+    }
+
     render() {
         return (
-            <button onClick={ this.props.action } class="btn btn-primary"> { this.props.caption }</button>
+            <span>
+                <button onClick={ this.props.action } class="btn btn-primary"> { this.props.caption }</button>
+            </span>
         )
     }
 }
 
-SAVEBUTTON.propTypes = {
+InputButton.propTypes = {
     caption: React.PropTypes.string,
     action: React.PropTypes.func,
+    buttondisabled: React.PropTypes.bool
 };
 
-export default SAVEBUTTON;
+export default InputButton;

@@ -4,27 +4,39 @@ import DashboardStore from './dashboard.store';
 import { DashboardActions } from './dashboard.action';
 
 import INPUTTEXTBOX from '../common/InputTextbox';
-import SAVEBUTTON from '../common/InputButton';
+import InputButton from '../common/InputButton';
 import DATALIST from './datalist';
-import { DashboardServices } from './test';
+import Notification from '../common/Notification';
 
-class DASHBOARD extends React.Component {
+let i = 1;
+class DASHBOARD extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            authorlist: [],
+            authorlist: DashboardStore.getAuthors() || [],
             dashboard: DashboardStore.getDashboard(),
-            rowcolor: DashboardStore.getRowColor()
+            rowcolor: DashboardStore.getRowColor(),
+            buttondisabled: DashboardStore.getButtonDisabled(),
+            notification: DashboardStore.getNotification()
         };
 
         this._onStateChange = this._onStateChange.bind(this);
     }
-
+    /**
+     * [componentWillMount description]: it is more or less initialize state which is basically null all state here
+     * @return {[type]} [description]
+     */
     componentWillMount() {
-        DashboardStore.fetchAuthorsLists();
         DashboardStore.addChangeListener(this._onStateChange);
+    }
+    /**
+     * [componentDidMount description]: this will usefull when you have asynchronized all and here dom will be available
+     * @return {[type]} [description]
+     */
+    componentDidMount(){
+        DashboardActions.fetchAuthorsLists();
     }
 
     componentWillUnmount() {
@@ -34,7 +46,9 @@ class DASHBOARD extends React.Component {
     _onStateChange() {
         this.setState({
             authorlist: DashboardStore.getAuthors(),
-            dashboard: DashboardStore.getDashboard()
+            dashboard: DashboardStore.getDashboard(),
+            buttondisabled: DashboardStore.getButtonDisabled(),
+            notification: DashboardStore.getNotification()
         });
     }
 
@@ -56,12 +70,19 @@ class DASHBOARD extends React.Component {
         }
     }
 
-    getSaveProps() {
+    getNewButtonProps(){
+        return {
+            caption: 'Reset',
+            action: this._reset
+        };
+    }
+
+    getSaveButtonProps() {
         return {
             caption: 'Save Data',
-            action: this._saveDashboard
+            action: this._saveDashboard,
+            buttondisabled: DashboardStore.getButtonDisabled()
         };
-
     }
 
     getDataProps() {
@@ -71,7 +92,11 @@ class DASHBOARD extends React.Component {
             items: this.state.authorlist,
             getRowData: DashboardActions.getRowData,
             deleteRow: DashboardActions.deleteRow
-        }
+        };
+    }
+    
+    _reset(){
+        DashboardStore._resetDashboard();
     }
 
     _saveDashboard() {
@@ -79,7 +104,7 @@ class DASHBOARD extends React.Component {
     }
 
     render() {
-
+        // console.log('checking... ',i++,'times it renders.');
         return (
             <div class="container">
                 <div class="row">
@@ -93,7 +118,9 @@ class DASHBOARD extends React.Component {
                             <INPUTTEXTBOX {...this.getAuthorProps()} />
                         </div>
                         <div class="panel-footer">
-                            <SAVEBUTTON {...this.getSaveProps()} />
+                            <span class="text-right"><InputButton {...this.getSaveButtonProps()} /></span>
+                            <span class="text-left"><InputButton {...this.getNewButtonProps()} /></span>
+                            <span class="pull-right"> <Notification {...this.state.notification} /></span>
                         </div>
                     </div>
                 </div>
