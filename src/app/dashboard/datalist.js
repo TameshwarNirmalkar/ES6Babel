@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import RowComponent from './rowcomponent';
 
-class DATALIST extends React.Component {
+class DATALIST extends Component {
     /**
      * [constructor description]: Inplace of getInitialStates constructor has introduced in React ES6.
      * @param  {[props]} props = [propTypes]

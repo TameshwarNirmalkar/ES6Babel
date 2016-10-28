@@ -1,5 +1,5 @@
-const { AppDispatcher } = require('../common');
-const EventEmitter = require('events').EventEmitter;
+import { AppDispatcher } from '../common';
+import {EventEmitter} from 'events';
 
 const CHANGE_EVENT = 'change';
 
@@ -31,4 +31,4 @@ const BaseStore = Object.assign({}, EventEmitter.prototype, {
     }
 });
 
-module.exports = BaseStore;
+export default BaseStore;

@@ -1,10 +1,11 @@
-const _ = require('lodash');
-const update = require('react-addons-update');
+import _  from 'lodash';
+import update from 'react-addons-update';
+import { Dispatcher } from 'flux';
 
-const { AppDispatcher } = require('../common/index');
-const BaseStore = require('../utils/BaseStore');
-const DashboardEvents = require('./dashboard.events');
-const DashboardModel = require('./dashboard.model');
+import { AppDispatcher } from '../common/index';
+import BaseStore from '../utils/BaseStore';
+import DashboardEvents from './dashboard.events';
+import DashboardModel from './dashboard.model';
 
 let _authorlists = null;
 let _dashboard = new DashboardModel();
@@ -12,6 +13,12 @@ let _dashboard = new DashboardModel();
 let _notification = null;
 
 const DashboardStore = Object.assign({}, BaseStore, {
+/*class DashboardStore extends BaseStore {
+
+    constructor(){
+        super();
+        console.log('BAse', BaseStore );
+    }*/
 
     getNotification(){
         return _notification;
@@ -84,11 +91,10 @@ const DashboardStore = Object.assign({}, BaseStore, {
     _deleteAuthor(authorId){
         const allAuthors = this.getAuthors();
         _.remove(allAuthors, {id : authorId});
-    }
+    },
 });
 
 DashboardStore.registerWithDispatcher(payload => {
-    // console.log('Payload: ', payload);
     switch (payload.actionType) {
 
         case DashboardEvents.AUTHORS_LOADING:

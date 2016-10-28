@@ -8,7 +8,6 @@ import InputButton from '../common/InputButton';
 import DATALIST from './datalist';
 import Notification from '../common/Notification';
 
-let i = 1;
 class DASHBOARD extends Component {
 
     constructor(props) {
@@ -58,7 +57,7 @@ class DASHBOARD extends Component {
             placeholder: 'Enter any movie name',
             val: _.get(this.state, 'dashboard.title'),
             onChange: DashboardActions.setTitle
-        }
+        };
     }
 
     getAuthorProps() {
@@ -67,7 +66,7 @@ class DASHBOARD extends Component {
             placeholder: 'Actor and actoress name',
             val: _.get(this.state, 'dashboard.author'),
             onChange: DashboardActions.setAuthor
-        }
+        };
     }
 
     getNewButtonProps(){
@@ -104,7 +103,6 @@ class DASHBOARD extends Component {
     }
 
     render() {
-        // console.log('checking... ',i++,'times it renders.');
         return (
             <div class="container">
                 <div class="row">
@@ -129,7 +127,7 @@ class DASHBOARD extends Component {
                 </div>
                 </div>
             </div>
-        )
+        );
 
     }
 }

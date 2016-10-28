@@ -101,7 +101,7 @@ class DashboardAction {
                 actionType: DashboardEvents.FILL_AUTHOR,
                 author: Mapper.fromBackend(authordetails)
             });
-        })
+        });
     }
 
     deleteRow(id) {
@@ -110,17 +110,15 @@ class DashboardAction {
                 actionType: DashboardEvents.DELETE_AUTHOR,
                 authorId: id
             });
-        })
+        });
     }
 
     _execute(endpoint) {
-        console.log('Excute method: ');
         AppDispatcher.dispatch({
             actionType: DashboardEvents.DASHBOARD_SAVE_IN_PROGRESS
         });
 
         return endpoint.then(author => {
-            console.log('Inside callback : ', Mapper.fromBackend(author));
             AppDispatcher.dispatch({
                 actionType: DashboardEvents.DASHBOARD_SAVED,
                 author: Mapper.fromBackend(author)
