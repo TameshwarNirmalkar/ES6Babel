@@ -1,9 +1,17 @@
-const DASHBOARDCONFIG = {
-    appApiPath: "http://localhost:4001/api/",
-    backendDateFormat: "YYYY-MM-DDTHH:mm:ss.SSSZ",
-    baseUrl: "/",
-    prefix: "dashboard",
-    protocol: "https"
+class ApiConfig {
+	getDashboardApi(){
+		const api = {
+	    	appApiPath: "http://localhost:4001/api/",
+	    	backendDateFormat: "YYYY-MM-DDTHH:mm:ss.SSSZ",
+	    	baseUrl: "/",
+	    	prefix: "dashboard",
+	    	protocol: "https"
+	    };
+
+		return api;
+	}
 }
 
-module.exports = DASHBOARDCONFIG;
+const APICONFIG = new ApiConfig();
+
+export default APICONFIG;

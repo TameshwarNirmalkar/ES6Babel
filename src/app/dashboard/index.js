@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import DashboardStore from './dashboard.store';
-import { DashboardActions } from './dashboard.action';
+import DashboardActions from './dashboard.action';
 
 import INPUTTEXTBOX from '../common/InputTextbox';
 import InputButton from '../common/InputButton';

@@ -1,18 +1,21 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-const { AppDispatcher, RestResource } = require('../common');
-const Mapper = require('../utils/Mapper');
-const Config = require('../utils/Config');
-const AuthorRestService = RestResource(Config);
+import { AppDispatcher, RestResource } from '../common';
+import Mapper from '../utils/Mapper';
+import APICONFIG from '../utils/Config';
 
-const DashboardEvents = require('./dashboard.events');
-const DashboardStore = require('./dashboard.store');
+import DashboardEvents from './dashboard.events';
+import DashboardStore from './dashboard.store';
 
+const AuthorRestService = RestResource(APICONFIG.getDashboardApi());
 const _SAVE_TEMPLATE_DELAY = 300;
-let _updatePromise = null;
-let _createPromise = null;
 
 class DashboardAction {
+
+    constructor(){
+        this._updatePromise = null;
+        this._createPromise = null;
+    }
 
     fetchAuthorsLists() {
         AppDispatcher.dispatch({
@@ -22,8 +25,7 @@ class DashboardAction {
             }
         });
 
-        fetch('http://localhost:4001/api/authors')
-            .then(result => result.json())
+        AuthorRestService.get('authors')
             .then(authorlists => {
                 setTimeout(() => {
                     AppDispatcher.dispatch({
@@ -68,31 +70,14 @@ class DashboardAction {
 
     _createDashboard(data) {
         return this._execute(
-            _createPromise = AuthorRestService.post('authors', JSON.stringify(data))
+            this._createPromise = AuthorRestService.post('authors', JSON.stringify(data))
         );
-
-        // AuthorRestService.post('authors', JSON.stringify(data)).then(dashboard => {
-        //     console.log( dashboard );
-        //     AppDispatcher.dispatch({
-        //         actionType: DashboardEvents.FETCH_AUTHORS,
-        //         author: dashboard
-        //     });
-        // });
-
     }
 
     _updateDashboard(data) {
-        console.log('Update method: ', data );
         return this._execute(
-            _updatePromise = AuthorRestService.put('authors/' + data.id, JSON.stringify(data))
+            this._updatePromise = AuthorRestService.put('authors/' + data.id, JSON.stringify(data))
         );
-
-        /*AuthorRestService.put('authors/' + data.id, JSON.stringify(data)).then(dashboard => {
-           AppDispatcher.dispatch({
-                actionType: DashboardEvents.FETCH_AUTHORS,
-                author: dashboard
-            }); 
-        })*/
     }
 
     getRowData(id) {
@@ -144,8 +129,11 @@ class DashboardAction {
 
     _setUrl(id) {
         const locationUrl = window.location.href.replace(/[^\/]+((\?.*)?$|\/$)/, id);
-        window.history.replaceState({}, 'Create template', locationUrl);
+        window.history.replaceState({}, 'Dashboard', locationUrl);
     }
 }
 
-export let DashboardActions = new DashboardAction();
+// console.log( DashboardAction.classMethod() );
+const DashboardActions = new DashboardAction();
+
+export default DashboardActions;

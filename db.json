@@ -1,5 +1,16 @@
 {
-  "authors": [],
+  "authors": [
+    {
+      "title": "test",
+      "author": "movie cast",
+      "id": 1
+    },
+    {
+      "title": "aaa",
+      "author": "aaaa",
+      "id": 2
+    }
+  ],
   "comments": [
     {
       "id": 1,
