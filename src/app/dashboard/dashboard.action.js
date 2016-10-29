@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { AppDispatcher, RestResource } from '../common';
 import Mapper from '../utils/Mapper';
 import APICONFIG from '../utils/Config';
@@ -8,7 +6,6 @@ import DashboardEvents from './dashboard.events';
 import DashboardStore from './dashboard.store';
 
 const AuthorRestService = RestResource(APICONFIG.getDashboardApi());
-const _SAVE_TEMPLATE_DELAY = 300;
 
 class DashboardAction {
 
@@ -26,17 +23,17 @@ class DashboardAction {
         });
 
         AuthorRestService.get('authors')
-            .then(authorlists => {
-                setTimeout(() => {
-                    AppDispatcher.dispatch({
-                        actionType: DashboardEvents.AUTHORS_LOADED,
-                        authorlists,
-                        notification: {
-                            message: 'Authors loaded'
-                        }
-                    });
-                }, 1000);
-            });
+        .then(authorlists => {
+            setTimeout(() => {
+                AppDispatcher.dispatch({
+                    actionType: DashboardEvents.AUTHORS_LOADED,
+                    authorlists,
+                    notification: {
+                        message: 'Authors loaded'
+                    }
+                });
+            }, 1000);
+        });
     }
 
     setTitle(title) {
@@ -53,8 +50,8 @@ class DashboardAction {
         });
     }
 
-    getNotification() {
-        return _notification;
+    setMaleFemale(checkboxval){
+        console.log(checkboxval);
     }
 
     saveDashboard() {
@@ -90,12 +87,14 @@ class DashboardAction {
     }
 
     deleteRow(id) {
-        AuthorRestService.delete('authors/' + id).then(dashboard => {
+        AuthorRestService.delete('authors/' + id).then(() => {
+
             AppDispatcher.dispatch({
                 actionType: DashboardEvents.DELETE_AUTHOR,
                 authorId: id
             });
         });
+
     }
 
     _execute(endpoint) {
@@ -113,9 +112,10 @@ class DashboardAction {
 
         }).fail(error => {
 
-            if (_updatePromise && _updatePromise.isAborted) {
+            if (this._updatePromise && this._updatePromise.isAborted) {
                 AppDispatcher.dispatch({
-                    actionType: DashboardEvents.DASHBOARD_SAVE_ABORTED
+                    actionType: DashboardEvents.DASHBOARD_SAVE_ABORTED,
+                    error: error
                 });
 
                 return;
@@ -133,7 +133,6 @@ class DashboardAction {
     }
 }
 
-// console.log( DashboardAction.classMethod() );
 const DashboardActions = new DashboardAction();
 
 export default DashboardActions;

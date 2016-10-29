@@ -1,12 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+/*eslint-disable no-unused-vars*/
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import DashboardStore from './dashboard.store';
 import DashboardActions from './dashboard.action';
 
 import INPUTTEXTBOX from '../common/InputTextbox';
 import InputButton from '../common/InputButton';
+import CheckBox from '../common/Checkbox';
 import DATALIST from './datalist';
 import Notification from '../common/Notification';
+/*eslint-enable no-unused-vars*/
 
 class DASHBOARD extends Component {
 
@@ -34,7 +38,7 @@ class DASHBOARD extends Component {
      * [componentDidMount description]: this will usefull when you have asynchronized all and here dom will be available
      * @return {[type]} [description]
      */
-    componentDidMount(){
+    componentDidMount() {
         DashboardActions.fetchAuthorsLists();
     }
 
@@ -69,7 +73,15 @@ class DASHBOARD extends Component {
         };
     }
 
-    getNewButtonProps(){
+    getCheckboxProps(){
+        return {
+            labelA: 'Male',
+            labelB: 'Female',
+            onChange: DashboardActions.setMaleFemale
+        };
+    }
+
+    getNewButtonProps() {
         return {
             caption: 'Reset',
             action: this._reset
@@ -94,7 +106,7 @@ class DASHBOARD extends Component {
         };
     }
     
-    _reset(){
+    _reset() {
         DashboardStore._resetDashboard();
     }
 
@@ -114,6 +126,7 @@ class DASHBOARD extends Component {
                         <div class="panel-body">
                             <INPUTTEXTBOX {...this.getTitleProps()} />
                             <INPUTTEXTBOX {...this.getAuthorProps()} />
+                            <CheckBox {...this.getCheckboxProps()} />
                         </div>
                         <div class="panel-footer">
                             <span class="text-right"><InputButton {...this.getSaveButtonProps()} /></span>
@@ -131,5 +144,7 @@ class DASHBOARD extends Component {
 
     }
 }
+
+export default DASHBOARD;
 
 ReactDOM.render(<DASHBOARD />, document.getElementById('mainapp'));

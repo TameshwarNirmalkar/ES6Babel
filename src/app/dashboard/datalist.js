@@ -1,6 +1,7 @@
-import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
+/*eslint-disable no-unused-vars*/
+import React, { Component } from 'react';
 import RowComponent from './rowcomponent';
+/*eslint-enabled no-unused-vars*/
 
 class DATALIST extends Component {
     /**

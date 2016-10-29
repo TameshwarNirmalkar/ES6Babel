@@ -1,8 +1,6 @@
-import _  from 'lodash';
+import _ from 'lodash';
 import update from 'react-addons-update';
-import { Dispatcher } from 'flux';
 
-import { AppDispatcher } from '../common/index';
 import BaseStore from '../utils/BaseStore';
 import DashboardEvents from './dashboard.events';
 import DashboardModel from './dashboard.model';
@@ -65,7 +63,7 @@ const DashboardStore = Object.assign({}, BaseStore, {
     },
 
     _saveInProgress() {
-        const notification = {'message': 'Loading...'};
+        const notification = { 'message': 'Loading...' };
         this._setNotification(notification);
     },
 
@@ -75,10 +73,10 @@ const DashboardStore = Object.assign({}, BaseStore, {
         if(getkey){
             _.merge(getkey, payload.author);
         }else{
-            this._setDashboard( oldlist.push(payload.author) );
+            this._setDashboard(oldlist.push(payload.author));
         }
         
-        const notification = {'message': 'Done'};
+        const notification = { 'message': 'Done' };
         this._setNotification(notification);
         
     },
@@ -90,7 +88,7 @@ const DashboardStore = Object.assign({}, BaseStore, {
 
     _deleteAuthor(authorId){
         const allAuthors = this.getAuthors();
-        _.remove(allAuthors, {id : authorId});
+        _.remove(allAuthors, { id : authorId });
     },
 });
 

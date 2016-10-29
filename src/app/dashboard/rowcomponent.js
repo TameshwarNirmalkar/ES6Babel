@@ -1,13 +1,13 @@
-import React, { Component, PropTypes} from 'react';
+/*eslint-disable no-unused-vars*/
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+/*eslint-enabled no-unused-vars*/
 
 class RowComponent extends Component {
 
     constructor(props) {
         super(props);
         this.props = props;
-        // this._onUpdate = this._onUpdate.bind(this);
-        // this._onDelete = this._onDelete.bind(this);
     }
 
     componentWillReceiveProps(next) {
@@ -45,6 +45,6 @@ RowComponent.propTypes = {
     author: React.PropTypes.any,
     onUpdateRow: React.PropTypes.func,
     onDeleteRow: React.PropTypes.func
-}
+};
 
 export default RowComponent;
