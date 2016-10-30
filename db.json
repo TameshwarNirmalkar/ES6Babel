@@ -2,26 +2,8 @@
   "authors": [
     {
       "id": 1,
-      "title": "Bani",
-      "author": "Nirmalkar",
-      "gender": "F"
-    },
-    {
-      "title": "Male test",
-      "author": "cast male",
-      "gender": "M",
-      "id": 2
-    },
-    {
-      "title": "aaa",
-      "author": "aaaaa",
-      "gender": "M",
-      "id": 3
-    },
-    {
-      "title": "fafsdf fsdffdfa sfd fas",
-      "author": "fdfasfasd fas dfas fsdafasfsd fasfsfasfas fas fasf",
-      "id": 4
+      "title": "Falaksh",
+      "author": "Nirmalkar"
     }
   ],
   "comments": [

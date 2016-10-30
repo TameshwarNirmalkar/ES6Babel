@@ -39,14 +39,6 @@ const DashboardStore = Object.assign({}, BaseStore, {
     },
 
     isType(author){
-        console.log(author);
-        // if(author.gender === 'M'){
-        //     return true;
-        // }else if(author.gender === 'F'){
-        //     return true;
-        // }else{
-        //     return false;
-        // }
         return author.gender;
     },
 

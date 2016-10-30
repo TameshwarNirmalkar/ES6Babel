@@ -87,15 +87,20 @@ class DASHBOARD extends Component {
     getNewButtonProps() {
         return {
             caption: 'Reset',
-            action: this._reset
+            action: this._reset,
+            buttondisabled: true
         };
+    }
+
+    _canSave(){
+        return !!_.get(this.state, 'dashboard.title') && !!_.get(this.state, 'dashboard.author');
     }
 
     getSaveButtonProps() {
         return {
             caption: 'Save Data',
             action: this._saveDashboard,
-            buttondisabled: DashboardStore.getButtonDisabled()
+            buttondisabled: this._canSave()
         };
     }
 
