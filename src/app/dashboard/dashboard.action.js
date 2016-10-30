@@ -30,7 +30,7 @@ class DashboardAction {
                     actionType: DashboardEvents.AUTHORS_LOADED,
                     authorlists,
                     notification: {
-                        message: 'Authors loaded'
+                        message: 'Done'
                     }
                 });
             }, _FETCT_SET_TIME);

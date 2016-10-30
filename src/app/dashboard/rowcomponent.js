@@ -19,11 +19,12 @@ class RowComponent extends Component {
         return (
             <tr onClick={this._onUpdate.bind(this)} role="button">
 	            <td>{ this.props.id }</td>
-	            <td>{ this.props.title } { this.props.gender }</td>
+	            <td>{ this.props.title }</td>
 	            <td>{ this.props.author }</td>
+                <td>{ this.props.gender }</td>
 	            <td>
 	                <a href="javascript:void(0);"><i class="glyphicon glyphicon-edit text-success hidden"> </i></a>
-	                <a onClick={this._onDelete.bind(this)} href="javascript:void(0);"><i class="glyphicon glyphicon-remove text-danger"> </i></a>
+	                <a onClick={this._onDelete.bind(this)} href="javascript:void(0);"><i class="glyphicon glyphicon-remove-circle text-danger"> </i></a>
 	            </td>
 	        </tr>
         );

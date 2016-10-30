@@ -3,12 +3,20 @@
     {
       "id": 1,
       "title": "Falaksh",
-      "author": "Nirmalkar"
+      "author": "Nirmalkar",
+      "gender": "M"
     },
     {
+      "id": 2,
       "title": "Tameshwar",
       "author": "Nirmalkar",
-      "id": 2
+      "gender": "M"
+    },
+    {
+      "title": "Shilpi",
+      "author": "Nirmalkar",
+      "gender": "F",
+      "id": 3
     }
   ],
   "comments": [

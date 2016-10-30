@@ -40,8 +40,9 @@ class DATALIST extends Component {
                         <thead>
                             <tr class={this.props.rowcolor}>
                                 <th class="col-lg-2" width="60">Sr. No</th>
-                                <th class="col-lg-4" width="">Movie</th>
-                                <th class="col-lg-4" width="">Actor</th>
+                                <th class="col-lg-4" width="">First Name</th>
+                                <th class="col-lg-4" width="">Last Name</th>
+                                <th class="col-lg-4" width="10">Gender</th>
                                 <th class="col-lg-2" width="60">Action</th>
                             </tr>
                         </thead>

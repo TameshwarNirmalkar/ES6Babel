@@ -53,15 +53,14 @@ class DASHBOARD extends Component {
             authorlist: DashboardStore.getAuthors(),
             dashboard: DashboardStore.getDashboard(),
             buttondisabled: DashboardStore.getButtonDisabled(),
-            notification: DashboardStore.getNotification(),
-            // checkedMaleFemale: DashboardStore.getcheckedMaleFemale()
+            notification: DashboardStore.getNotification()
         });
     }
 
     getTitleProps() {
         return {
-            label: 'Movie Name',
-            placeholder: 'Enter any movie name',
+            label: 'First Name',
+            placeholder: 'Enter your first name',
             val: _.get(this.state, 'dashboard.title'),
             onChange: DashboardActions.setTitle
         };
@@ -69,8 +68,8 @@ class DASHBOARD extends Component {
 
     getAuthorProps() {
         return {
-            label: 'Movie Cast',
-            placeholder: 'Actor and actoress name',
+            label: 'Last Name',
+            placeholder: 'Enter your last name',
             val: _.get(this.state, 'dashboard.author'),
             onChange: DashboardActions.setAuthor
         };
@@ -82,7 +81,7 @@ class DASHBOARD extends Component {
             labelA: 'Male',
             labelB: 'Female',
             onChange: DashboardActions.setMaleFemale,
-            type: _.get(this.state, 'dashboard.gender', 'M')
+            type: _.get(this.state, 'dashboard.gender', '')
         };
     }
 
