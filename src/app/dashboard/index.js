@@ -26,6 +26,8 @@ class DASHBOARD extends Component {
         };
 
         this._onStateChange = this._onStateChange.bind(this);
+
+        this.paddStyle = { 'margin':'0px 10px' };
     }
     /**
      * [componentWillMount description]: it is more or less initialize state which is basically null all state here
@@ -138,7 +140,7 @@ class DASHBOARD extends Component {
                         </div>
                         <div class="panel-footer">
                             <span class="text-right"><InputButton {...this.getSaveButtonProps()} /></span>
-                            <span class="text-left"><InputButton {...this.getNewButtonProps()} /></span>
+                            <span class="text-left" style={this.paddStyle}><InputButton {...this.getNewButtonProps()} /></span>
                             <span class="pull-right"> <Notification {...this.state.notification} /></span>
                         </div>
                     </div>

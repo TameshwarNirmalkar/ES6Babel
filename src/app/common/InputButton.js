@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-// import Classnames = require('classnames');
+import Classnames from 'classnames';
 
 class InputButton extends Component {
     /**
@@ -30,8 +30,8 @@ class InputButton extends Component {
     }
 
     render() {
-        // const launchCampaignClasses = Classnames('btn btn-primary', { disabled: !this.props.saveable });
-        const launchCampaignClasses = !this.props.buttondisabled ? 'btn btn-disabled':'btn btn-primary';
+        const launchCampaignClasses = Classnames('btn btn-primary', { disabled: !this.props.buttondisabled });
+        // const launchCampaignClasses = !this.props.buttondisabled ? 'btn btn-disabled':'btn btn-primary';
         return (
             <span>
                 <button onClick={ this.props.buttondisabled ? this.props.action : null } class={launchCampaignClasses} > { this.props.caption }</button>
