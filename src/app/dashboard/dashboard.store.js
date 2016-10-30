@@ -38,6 +38,18 @@ const DashboardStore = Object.assign({}, BaseStore, {
         return true;
     },
 
+    isType(author){
+        console.log(author);
+        // if(author.gender === 'M'){
+        //     return true;
+        // }else if(author.gender === 'F'){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+        return author.gender;
+    },
+
     _setNotification(notification){
         _notification = notification;
     },
@@ -47,11 +59,15 @@ const DashboardStore = Object.assign({}, BaseStore, {
     },
 
     _setTitle(title) {
-        this._updateDashboardWith({ title: { $set: String(title) } });
+        this._updateDashboardWith({ title: { $set: title } });
     },
 
     _setAuthor(author) {
-        this._updateDashboardWith({ author: { $set: String(author) } });
+        this._updateDashboardWith({ author: { $set: author } });
+    },
+
+    _setGender(gender){
+        this._updateDashboardWith({ gender: { $set: gender } });
     },
 
     _setDashboard(dashboard) {
@@ -116,6 +132,11 @@ DashboardStore.registerWithDispatcher(payload => {
             DashboardStore._emitChange();
             break;
 
+        case DashboardEvents.GENDER_CHANGE:
+            DashboardStore._setGender(payload.gender);
+            DashboardStore._emitChange();
+            break;
+
         case DashboardEvents.DASHBOARD_SAVE_IN_PROGRESS:
             DashboardStore._saveInProgress();
             DashboardStore._emitChange();
@@ -128,6 +149,7 @@ DashboardStore.registerWithDispatcher(payload => {
         
         case DashboardEvents.FILL_AUTHOR:
             DashboardStore._setDashboard(payload.author);
+            DashboardStore.isType(payload.author);
             DashboardStore._emitChange();
             break;
 

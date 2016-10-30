@@ -6,6 +6,7 @@ import DashboardEvents from './dashboard.events';
 import DashboardStore from './dashboard.store';
 
 const AuthorRestService = RestResource(APICONFIG.getDashboardApi());
+const _FETCT_SET_TIME = 1000;
 
 class DashboardAction {
 
@@ -32,7 +33,7 @@ class DashboardAction {
                         message: 'Authors loaded'
                     }
                 });
-            }, 1000);
+            }, _FETCT_SET_TIME);
         });
     }
 
@@ -50,8 +51,11 @@ class DashboardAction {
         });
     }
 
-    setMaleFemale(checkboxval){
-        console.log(checkboxval);
+    setMaleFemale(gender){
+        AppDispatcher.dispatch({
+            actionType: DashboardEvents.GENDER_CHANGE,
+            gender: gender.value
+        });
     }
 
     saveDashboard() {
@@ -77,7 +81,7 @@ class DashboardAction {
         );
     }
 
-    getRowData(id) {
+    onRowUpdate(id) {
         AuthorRestService.get('authors/' + id).then(authordetails => {
             AppDispatcher.dispatch({
                 actionType: DashboardEvents.FILL_AUTHOR,
@@ -86,9 +90,8 @@ class DashboardAction {
         });
     }
 
-    deleteRow(id) {
+    onRowDelete(id) {
         AuthorRestService.delete('authors/' + id).then(() => {
-
             AppDispatcher.dispatch({
                 actionType: DashboardEvents.DELETE_AUTHOR,
                 authorId: id
@@ -109,7 +112,6 @@ class DashboardAction {
             });
 
             return author;
-
         }).fail(error => {
 
             if (this._updatePromise && this._updatePromise.isAborted) {

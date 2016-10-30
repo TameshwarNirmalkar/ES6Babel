@@ -3,37 +3,25 @@
     {
       "id": 1,
       "title": "Bani",
-      "author": "Nirmalkar"
+      "author": "Nirmalkar",
+      "gender": "F"
     },
     {
-      "id": 2,
-      "title": "Tameshwar",
-      "author": "Nirmalkar"
+      "title": "Male test",
+      "author": "cast male",
+      "gender": "M",
+      "id": 2
     },
     {
-      "id": 3,
-      "title": "Falaksh",
-      "author": "Nirmalkar"
+      "title": "aaa",
+      "author": "aaaaa",
+      "gender": "M",
+      "id": 3
     },
     {
-      "id": 4,
-      "title": "Kunti",
-      "author": "Nirmalkar"
-    },
-    {
-      "id": 5,
-      "title": "Yashwant",
-      "author": "Nirmalkar"
-    },
-    {
-      "id": 6,
-      "title": "Sidharth",
-      "author": "Malhotra"
-    },
-    {
-      "id": 7,
-      "title": "Salmaan",
-      "author": "Khan"
+      "title": "fafsdf fsdffdfa sfd fas",
+      "author": "fdfasfasd fas dfas fsdafasfsd fasfsfasfas fas fasf",
+      "id": 4
     }
   ],
   "comments": [

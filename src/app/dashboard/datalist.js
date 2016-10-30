@@ -10,7 +10,7 @@ class DATALIST extends Component {
      */
     constructor(props) {
         super(props);
-        this.props = props;
+        // this.props = props;
         this.tableStyle = { marginBottom: 0 + 'px' };
     }
 
@@ -26,7 +26,7 @@ class DATALIST extends Component {
         if (!this.props.items.length) {
             return <tr><td colSpan="4">No records found...</td></tr>;
         }
-        return this.props.items.map(item => <RowComponent {...item} key={item.id} onUpdateRow={this.props.getRowData} onDeleteRow={this.props.deleteRow} />);
+        return this.props.items.map(item => <RowComponent {...item} key={item.id} onUpdateRow={this.props.onRowUpdate} onDeleteRow={this.props.onRowDelete} />);
     }
 
     _renderPanel() {
@@ -73,9 +73,8 @@ DATALIST.propTypes = {
     heading: React.PropTypes.string,
     rowcolor: React.PropTypes.string,
     items: React.PropTypes.array,
-    getRowData: React.PropTypes.func,
-    deleteRow: React.PropTypes.func,
-    rowClick: React.PropTypes.func
+    onRowUpdate: React.PropTypes.func,
+    onRowDelete: React.PropTypes.func
 };
 
 export default DATALIST;

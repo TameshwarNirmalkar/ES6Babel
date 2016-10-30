@@ -3,6 +3,6 @@ module.exports = function() {
         id: undefined,
         title: '',
         author: '',
-        gender: ''
+        gender: undefined
     };
 };

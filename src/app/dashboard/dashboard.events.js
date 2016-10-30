@@ -5,6 +5,7 @@ module.exports = keyMirror({
     AUTHORS_LOADED: null,
     AUTHORS_LOADING: null,
     AUTHOR_CHANGE: null,
+    GENDER_CHANGE: null,
     FILL_AUTHOR: null,
     TITLE_CHANGE: null,
     DASHBOARD_CHANGE: null,

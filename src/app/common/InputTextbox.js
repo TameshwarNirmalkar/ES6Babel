@@ -1,7 +1,9 @@
-import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
+/*eslint-disable no-unused-vars*/
+import React, { Component, PropTypes } from 'react';
+import _ from 'lodash';
+/*eslint-enable no-unused-vars*/
 
-export default class InputTextBox extends Component {
+class InputTextBox extends Component {
     constructor(props) {
         super(props);
     }
@@ -39,4 +41,6 @@ InputTextBox.PropTypes = {
     onChange: React.PropTypes.func,
     label: React.PropTypes.string,
     placeholder: React.PropTypes.string
-}
+};
+
+export default InputTextBox;

@@ -7,7 +7,7 @@ class RowComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.props = props;
+        // this.props = props;
     }
 
     componentWillReceiveProps(next) {
@@ -19,7 +19,7 @@ class RowComponent extends Component {
         return (
             <tr onClick={this._onUpdate.bind(this)} role="button">
 	            <td>{ this.props.id }</td>
-	            <td>{ this.props.title }</td>
+	            <td>{ this.props.title } { this.props.gender }</td>
 	            <td>{ this.props.author }</td>
 	            <td>
 	                <a href="javascript:void(0);"><i class="glyphicon glyphicon-edit text-success hidden"> </i></a>

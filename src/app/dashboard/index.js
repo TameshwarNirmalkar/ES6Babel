@@ -51,7 +51,8 @@ class DASHBOARD extends Component {
             authorlist: DashboardStore.getAuthors(),
             dashboard: DashboardStore.getDashboard(),
             buttondisabled: DashboardStore.getButtonDisabled(),
-            notification: DashboardStore.getNotification()
+            notification: DashboardStore.getNotification(),
+            // checkedMaleFemale: DashboardStore.getcheckedMaleFemale()
         });
     }
 
@@ -75,9 +76,11 @@ class DASHBOARD extends Component {
 
     getCheckboxProps(){
         return {
+            name: 'gender',
             labelA: 'Male',
             labelB: 'Female',
-            onChange: DashboardActions.setMaleFemale
+            onChange: DashboardActions.setMaleFemale,
+            type: _.get(this.state, 'dashboard.gender', 'M')
         };
     }
 
@@ -101,8 +104,8 @@ class DASHBOARD extends Component {
             heading: 'Movie List',
             rowcolor: this.state.rowcolor,
             items: this.state.authorlist,
-            getRowData: DashboardActions.getRowData,
-            deleteRow: DashboardActions.deleteRow
+            onRowUpdate: DashboardActions.onRowUpdate,
+            onRowDelete: DashboardActions.onRowDelete
         };
     }
     
