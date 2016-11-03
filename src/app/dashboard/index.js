@@ -1,5 +1,5 @@
 /*eslint-disable no-unused-vars*/
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import DashboardStore from './dashboard.store';
@@ -27,7 +27,7 @@ class DASHBOARD extends Component {
 
         this._onStateChange = this._onStateChange.bind(this);
 
-        this.paddStyle = { 'margin':'0px 10px' };
+        this.paddStyle = { margin:'0px 10px' };
     }
     /**
      * [componentWillMount description]: it is more or less initialize state which is basically null all state here

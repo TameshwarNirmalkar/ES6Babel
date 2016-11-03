@@ -1,5 +1,5 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: './src/main.js',
@@ -18,7 +18,7 @@ module.exports = {
         preLoaders: [{
             test: /\.jsx$/,
             exclude: /node_modules/,
-            loader: 'jshint-loader'
+            loader: 'eslint-loader'
         }],
         /**
          * [loaders description]: it runs after jsnihter test passes the code and compile the jsx.

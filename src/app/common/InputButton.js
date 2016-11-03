@@ -1,6 +1,8 @@
+/*eslint-disable no-unused-vars*/
 import React, { Component } from 'react';
 import _ from 'lodash';
 import Classnames from 'classnames';
+/*eslint-enable no-unused-vars*/
 
 class InputButton extends Component {
     /**
