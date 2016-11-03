@@ -125,7 +125,7 @@ class DASHBOARD extends Component {
 
     render() {
         return (
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                 <div class="col-md-6">
                     <div class="panel panel-primary">

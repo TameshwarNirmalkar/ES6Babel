@@ -15,13 +15,13 @@ class RowComponent extends Component {
     }
 
     render() {
-
+        const classes = (this.props.gender === 'M') ? 'bg-warning' : 'bg-primary';
         return (
             <tr onClick={this._onUpdate.bind(this)} role="button">
 	            <td>{ this.props.id }</td>
 	            <td>{ this.props.title }</td>
 	            <td>{ this.props.author }</td>
-                <td>{ this.props.gender }</td>
+                <td class={classes}>{ this.props.gender }</td>
 	            <td>
 	                <a href="javascript:void(0);"><i class="glyphicon glyphicon-edit text-success hidden"> </i></a>
 	                <a onClick={this._onDelete.bind(this)} href="javascript:void(0);"><i class="glyphicon glyphicon-remove-circle text-danger"> </i></a>
