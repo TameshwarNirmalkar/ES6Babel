@@ -42,6 +42,7 @@
     "eslint-plugin-react": "^6.4.1",
     "flux": "^3.1.0",
     "fs": "0.0.1-security",
+    "jquery": "^3.1.1",
     "jsdom": "^9.8.0",
     "json-server": "^0.8.22",
     "keymirror": "^0.1.1",
