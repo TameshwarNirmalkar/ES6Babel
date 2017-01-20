@@ -1,7 +1,7 @@
 class ApiConfig {
 	getDashboardApi(){
 		const api = {
-	    	appApiPath: "http://localhost:4001/api/",
+	    	appApiPath: "http://localhost:3000/",
 	    	backendDateFormat: "YYYY-MM-DDTHH:mm:ss.SSSZ",
 	    	baseUrl: "/",
 	    	prefix: "dashboard",
