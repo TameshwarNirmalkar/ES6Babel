@@ -107,7 +107,7 @@ class DASHBOARD extends Component {
 
     getDataProps() {
         return {
-            heading: 'Movie List',
+            heading: 'Details',
             rowcolor: this.state.rowcolor,
             items: this.state.authorlist,
             onRowUpdate: DashboardActions.onRowUpdate,
